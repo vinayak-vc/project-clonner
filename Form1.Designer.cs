@@ -1,4 +1,4 @@
-﻿namespace ProjectClonner {
+﻿namespace ProjectCloner {
     partial class Form1 {
         /// <summary>
         /// Required designer variable.
@@ -24,105 +24,148 @@
         /// </summary>
         private void InitializeComponent() {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.gitURL_textBox = new System.Windows.Forms.TextBox();
-            this.labelgitURL = new System.Windows.Forms.Label();
-            this.gitClone_button = new System.Windows.Forms.Button();
-            this.project_direcotorytextBox = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.button1 = new System.Windows.Forms.Button();
-            this.error_label = new System.Windows.Forms.Label();
-            this.SuspendLayout();
+            gitURL_textBox = new TextBox();
+            labelgitURL = new Label();
+            gitClone_button = new Button();
+            project_direcotorytextBox = new TextBox();
+            label1 = new Label();
+            folderBrowserDialog1 = new FolderBrowserDialog();
+            button1 = new Button();
+            error_label = new Label();
+            projectBranchTextbox = new TextBox();
+            label2 = new Label();
+            label3 = new Label();
+            baseprojectbrachTextbox = new TextBox();
+            SuspendLayout();
             // 
             // gitURL_textBox
             // 
-            this.gitURL_textBox.Location = new System.Drawing.Point(124, 43);
-            this.gitURL_textBox.Name = "gitURL_textBox";
-            this.gitURL_textBox.Size = new System.Drawing.Size(301, 23);
-            this.gitURL_textBox.TabIndex = 0;
+            gitURL_textBox.Location = new Point(124, 21);
+            gitURL_textBox.Name = "gitURL_textBox";
+            gitURL_textBox.Size = new Size(301, 23);
+            gitURL_textBox.TabIndex = 0;
+            gitURL_textBox.Text = "https://github.com/viitoradmin/hologram-stage-viewer-application.git";
             // 
             // labelgitURL
             // 
-            this.labelgitURL.AutoSize = true;
-            this.labelgitURL.Location = new System.Drawing.Point(12, 43);
-            this.labelgitURL.Name = "labelgitURL";
-            this.labelgitURL.Size = new System.Drawing.Size(43, 15);
-            this.labelgitURL.TabIndex = 1;
-            this.labelgitURL.Text = "GitURL";
+            labelgitURL.AutoSize = true;
+            labelgitURL.Location = new Point(12, 21);
+            labelgitURL.Name = "labelgitURL";
+            labelgitURL.Size = new Size(43, 15);
+            labelgitURL.TabIndex = 1;
+            labelgitURL.Text = "GitURL";
             // 
             // gitClone_button
             // 
-            this.gitClone_button.Location = new System.Drawing.Point(301, 137);
-            this.gitClone_button.Name = "gitClone_button";
-            this.gitClone_button.Size = new System.Drawing.Size(124, 40);
-            this.gitClone_button.TabIndex = 2;
-            this.gitClone_button.Text = "Clone";
-            this.gitClone_button.UseVisualStyleBackColor = true;
-            this.gitClone_button.Click += new System.EventHandler(this.gitClone_button_Click);
+            gitClone_button.Location = new Point(301, 149);
+            gitClone_button.Name = "gitClone_button";
+            gitClone_button.Size = new Size(124, 40);
+            gitClone_button.TabIndex = 2;
+            gitClone_button.Text = "Clone";
+            gitClone_button.UseVisualStyleBackColor = true;
+            gitClone_button.Click += gitClone_button_Click;
             // 
             // project_direcotorytextBox
             // 
-            this.project_direcotorytextBox.Location = new System.Drawing.Point(124, 86);
-            this.project_direcotorytextBox.Name = "project_direcotorytextBox";
-            this.project_direcotorytextBox.Size = new System.Drawing.Size(240, 23);
-            this.project_direcotorytextBox.TabIndex = 3;
+            project_direcotorytextBox.Location = new Point(124, 64);
+            project_direcotorytextBox.Name = "project_direcotorytextBox";
+            project_direcotorytextBox.Size = new Size(240, 23);
+            project_direcotorytextBox.TabIndex = 3;
+            project_direcotorytextBox.Text = "D:\\Vinayak_ViitorCloud\\Temp";
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 86);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(95, 15);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Project Directory";
+            label1.AutoSize = true;
+            label1.Location = new Point(12, 64);
+            label1.Name = "label1";
+            label1.Size = new Size(95, 15);
+            label1.TabIndex = 4;
+            label1.Text = "Project Directory";
             // 
             // folderBrowserDialog1
             // 
-            this.folderBrowserDialog1.RootFolder = System.Environment.SpecialFolder.MyDocuments;
+            folderBrowserDialog1.RootFolder = Environment.SpecialFolder.MyDocuments;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(370, 83);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(55, 27);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Browse";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            button1.Location = new Point(370, 61);
+            button1.Name = "button1";
+            button1.Size = new Size(55, 27);
+            button1.TabIndex = 5;
+            button1.Text = "Browse";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // error_label
             // 
-            this.error_label.AutoSize = true;
-            this.error_label.ForeColor = System.Drawing.Color.Red;
-            this.error_label.Location = new System.Drawing.Point(12, 137);
-            this.error_label.Name = "error_label";
-            this.error_label.Size = new System.Drawing.Size(0, 15);
-            this.error_label.TabIndex = 6;
+            error_label.AutoSize = true;
+            error_label.ForeColor = Color.Red;
+            error_label.Location = new Point(12, 137);
+            error_label.Name = "error_label";
+            error_label.Size = new Size(0, 15);
+            error_label.TabIndex = 6;
+            // 
+            // projectBranchTextbox
+            // 
+            projectBranchTextbox.Location = new Point(124, 107);
+            projectBranchTextbox.Name = "projectBranchTextbox";
+            projectBranchTextbox.Size = new Size(87, 23);
+            projectBranchTextbox.TabIndex = 7;
+            projectBranchTextbox.Text = "developement";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(12, 110);
+            label2.Name = "label2";
+            label2.Size = new Size(84, 15);
+            label2.TabIndex = 8;
+            label2.Text = "Project Branch";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(224, 110);
+            label3.Name = "label3";
+            label3.Size = new Size(108, 15);
+            label3.TabIndex = 10;
+            label3.Text = "BaseProject Branch";
+            // 
+            // baseprojectbrachTextbox
+            // 
+            baseprojectbrachTextbox.Location = new Point(338, 107);
+            baseprojectbrachTextbox.Name = "baseprojectbrachTextbox";
+            baseprojectbrachTextbox.Size = new Size(87, 23);
+            baseprojectbrachTextbox.TabIndex = 9;
+            baseprojectbrachTextbox.Text = "2022.3.11f";
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ClientSize = new System.Drawing.Size(446, 201);
-            this.Controls.Add(this.error_label);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.project_direcotorytextBox);
-            this.Controls.Add(this.gitClone_button);
-            this.Controls.Add(this.labelgitURL);
-            this.Controls.Add(this.gitURL_textBox);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.MaximizeBox = false;
-            this.Name = "Form1";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Git Clonner";
-            this.TopMost = true;
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackgroundImageLayout = ImageLayout.Center;
+            ClientSize = new Size(446, 201);
+            Controls.Add(label3);
+            Controls.Add(baseprojectbrachTextbox);
+            Controls.Add(label2);
+            Controls.Add(projectBranchTextbox);
+            Controls.Add(error_label);
+            Controls.Add(button1);
+            Controls.Add(label1);
+            Controls.Add(project_direcotorytextBox);
+            Controls.Add(gitClone_button);
+            Controls.Add(labelgitURL);
+            Controls.Add(gitURL_textBox);
+            FormBorderStyle = FormBorderStyle.SizableToolWindow;
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            ImeMode = ImeMode.Disable;
+            MaximizeBox = false;
+            Name = "Form1";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Git Clonner";
+            TopMost = true;
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -135,5 +178,9 @@
         private FolderBrowserDialog folderBrowserDialog1;
         private Button button1;
         private Label error_label;
+        private TextBox projectBranchTextbox;
+        private Label label2;
+        private Label label3;
+        private TextBox baseprojectbrachTextbox;
     }
 }
