@@ -1,4 +1,4 @@
-﻿namespace ProjectClonner {
+﻿namespace ProjectCloner {
     partial class promtdialog_Form {
         /// <summary>
         /// Required designer variable.
