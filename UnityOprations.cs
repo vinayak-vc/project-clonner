@@ -3,9 +3,10 @@ using System.Security;
 
 namespace ProjectCloner {
 
-    internal static class UnityOprations {
+    internal class UnityOprations {
+        private readonly Form1 form1;
 
-        public static void StartUnityOperations(string unityVersion, string projectpath) {
+        public void StartUnityOperations(string unityVersion, string projectpath) {
             try {
                 string unityPath = FindUnityExecutable(unityVersion); // Change this to your desired version
                 if (unityPath != null) {
@@ -15,12 +16,16 @@ namespace ProjectCloner {
                 }
             } catch (UnauthorizedAccessException) {
                 MessageBox.Show("You don't have permission to run Unity. Please run the application as an administrator.");
+                form1.HandleError("You don't have permission to run Unity. Please run the application as an administrator.");
             } catch (SecurityException) {
                 MessageBox.Show("Security error occurred while trying to run Unity. Please check your security settings.");
+                form1.HandleError("Security error occurred while trying to run Unity. Please check your security settings.");
             } catch (FileNotFoundException) {
                 MessageBox.Show("Unity executable not found.");
+                form1.HandleError("Unity executable not found.");
             } catch (Exception ex) {
                 MessageBox.Show($"Error: {ex.Message}");
+                form1.HandleError($"Error: {ex.Message}");
             }
         }
 
@@ -47,7 +52,7 @@ namespace ProjectCloner {
             return null;
         }
 
-        private static void StartUnityProcess(string unityPath, string projectPath) {
+        private void StartUnityProcess(string unityPath, string projectPath) {
             Debug.Print("unityPath: " + unityPath);
             Debug.Print("projectPath: " + projectPath);
             string unityArgs = $"-projectPath {projectPath} -executeMethod ViitorCloud.Base.BaseScripts.PluginObjects.Editor.CheckforPlugin.DownloadThePlugin"; // Change this to your method
@@ -68,27 +73,33 @@ namespace ProjectCloner {
 
             try {
                 unityProcess.Start();
-            } catch (UnauthorizedAccessException) {
+            } catch (UnauthorizedAccessException e) {
+                form1.HandleError("Error occurred : " + e);
                 throw; // Re-throw the exception to be caught in the button click handler
-            } catch (SecurityException) {
+            } catch (SecurityException e) {
+                form1.HandleError("Error occurred : " + e);
                 throw; // Re-throw the exception to be caught in the button click handler
             } catch (Exception ex) {
+                form1.HandleError("Error occurred : " + ex);
                 throw new Exception($"Error starting Unity process: {ex.Message}");
             }
         }
 
-        private static void UnityProcess_Exited(object sender, EventArgs e) {
+        private void UnityProcess_Exited(object? sender, EventArgs e) {
             Process unityProcess = (Process)sender;
 
             // Check if Unity process exited successfully
             if (unityProcess.ExitCode == 0) {
                 MessageBox.Show("Unity operation completed successfully!");
+                form1.HandleError("Unity operation completed successfully!");
             } else {
                 // Check if Unity process crashed unexpectedly
                 if (!unityProcess.HasExited) {
                     MessageBox.Show("Unity process crashed unexpectedly!");
+                    form1.HandleError("Unity process crashed unexpectedly!");
                 } else {
                     MessageBox.Show("Unity operation failed!");
+                    form1.HandleError("Unity operation failed!");
                 }
             }
         }
