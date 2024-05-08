@@ -36,6 +36,7 @@
             label2 = new Label();
             label3 = new Label();
             baseprojectbrachTextbox = new TextBox();
+            openLogButton = new Button();
             SuspendLayout();
             // 
             // gitURL_textBox
@@ -57,7 +58,7 @@
             // 
             // gitClone_button
             // 
-            gitClone_button.Location = new Point(301, 149);
+            gitClone_button.Location = new Point(301, 155);
             gitClone_button.Name = "gitClone_button";
             gitClone_button.Size = new Size(124, 40);
             gitClone_button.TabIndex = 2;
@@ -102,8 +103,9 @@
             error_label.ForeColor = Color.Red;
             error_label.Location = new Point(12, 137);
             error_label.Name = "error_label";
-            error_label.Size = new Size(0, 15);
+            error_label.Size = new Size(43, 15);
             error_label.TabIndex = 6;
+            error_label.Text = "asdasd";
             // 
             // projectBranchTextbox
             // 
@@ -139,12 +141,23 @@
             baseprojectbrachTextbox.TabIndex = 9;
             baseprojectbrachTextbox.Text = "2022.3.11f";
             // 
+            // openLogButton
+            // 
+            openLogButton.Location = new Point(12, 155);
+            openLogButton.Name = "openLogButton";
+            openLogButton.Size = new Size(124, 40);
+            openLogButton.TabIndex = 11;
+            openLogButton.Text = "Open Log";
+            openLogButton.UseVisualStyleBackColor = true;
+            openLogButton.Click += openLogButton_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImageLayout = ImageLayout.Center;
             ClientSize = new Size(446, 201);
+            Controls.Add(openLogButton);
             Controls.Add(label3);
             Controls.Add(baseprojectbrachTextbox);
             Controls.Add(label2);
@@ -164,6 +177,7 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Git Clonner";
             TopMost = true;
+            Load += Form1_Load;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -182,5 +196,6 @@
         private Label label2;
         private Label label3;
         private TextBox baseprojectbrachTextbox;
+        private Button openLogButton;
     }
 }

@@ -23,48 +23,61 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            ErrorLable = new Label();
-            Close_button = new Button();
+            ErrorLable = new RichTextBox();
+            fontNumericUpDown = new NumericUpDown();
+            fontLabel = new Label();
+            ((System.ComponentModel.ISupportInitialize)fontNumericUpDown).BeginInit();
             SuspendLayout();
             // 
             // ErrorLable
             // 
-            ErrorLable.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            ErrorLable.AutoSize = true;
-            ErrorLable.Location = new Point(343, 78);
+            ErrorLable.Location = new Point(12, 50);
             ErrorLable.Name = "ErrorLable";
-            ErrorLable.Size = new Size(38, 15);
-            ErrorLable.TabIndex = 0;
-            ErrorLable.Text = "label1";
+            ErrorLable.ReadOnly = true;
+            ErrorLable.Size = new Size(776, 359);
+            ErrorLable.TabIndex = 3;
+            ErrorLable.Text = "";
             // 
-            // Close_button
+            // fontNumericUpDown
             // 
-            Close_button.Location = new Point(343, 362);
-            Close_button.Name = "Close_button";
-            Close_button.Size = new Size(75, 23);
-            Close_button.TabIndex = 1;
-            Close_button.Text = "Close";
-            Close_button.UseVisualStyleBackColor = true;
-            Close_button.Click += Close_button_Click;
+            fontNumericUpDown.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            fontNumericUpDown.Location = new Point(745, 21);
+            fontNumericUpDown.Name = "fontNumericUpDown";
+            fontNumericUpDown.Size = new Size(43, 23);
+            fontNumericUpDown.TabIndex = 4;
+            fontNumericUpDown.ValueChanged += fontNumericUpDown_ValueChanged;
+            // 
+            // fontLabel
+            // 
+            fontLabel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            fontLabel.AutoSize = true;
+            fontLabel.Location = new Point(685, 23);
+            fontLabel.Name = "fontLabel";
+            fontLabel.Size = new Size(54, 15);
+            fontLabel.TabIndex = 5;
+            fontLabel.Text = "Font Size";
             // 
             // ErrorForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            ControlBox = false;
-            Controls.Add(Close_button);
+            Controls.Add(fontLabel);
+            Controls.Add(fontNumericUpDown);
             Controls.Add(ErrorLable);
             Name = "ErrorForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Error";
+            Load += ErrorForm_Load;
+            Resize += ErrorForm_Resize;
+            ((System.ComponentModel.ISupportInitialize)fontNumericUpDown).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private Label ErrorLable;
-        private Button Close_button;
+        private RichTextBox ErrorLable;
+        private NumericUpDown fontNumericUpDown;
+        private Label fontLabel;
     }
 }
