@@ -1,10 +1,15 @@
 ﻿using System.Diagnostics;
 using System.Security;
+using System.Windows.Forms;
 
 namespace ProjectCloner {
 
     internal class UnityOprations {
-        private readonly Form1 form1;
+        private static Form1 form1;
+
+        internal void Init(Form1 form) {
+            form1 = form;
+        }
 
         public void StartUnityOperations(string unityVersion, string projectpath) {
             try {
@@ -29,7 +34,8 @@ namespace ProjectCloner {
             }
         }
 
-        private static string? FindUnityExecutable(string version) {
+        public static string? FindUnityExecutable(string version) {
+            version = "2022.3.11f";
             string[] unityInstallationPaths = {
                 $@"C:\Program Files\Unity\Hub\Editor\{version}1\Editor\",
                 $@"C:\Program Files (x86)\Unity\Hub\Editor\{version}1\Editor\"
@@ -44,6 +50,7 @@ namespace ProjectCloner {
                 foreach (string executable in unityExecutableNames) {
                     string fullPath = Path.Combine(path, executable);
                     if (File.Exists(fullPath)) {
+                        form1.HandleError($"Unity Version Found at {fullPath}", false, true);
                         return fullPath;
                     }
                 }
@@ -55,7 +62,7 @@ namespace ProjectCloner {
         private void StartUnityProcess(string unityPath, string projectPath) {
             Debug.Print("unityPath: " + unityPath);
             Debug.Print("projectPath: " + projectPath);
-            string unityArgs = $"-projectPath {projectPath} -executeMethod ViitorCloud.Base.BaseScripts.PluginObjects.Editor.CheckforPlugin.DownloadThePlugin"; // Change this to your method
+            string unityArgs = $" -quit -projectPath {projectPath} -executeMethod ViitorCloud.Base.BaseScripts.PluginObjects.Editor.CheckforPlugin.DownloadThePlugin"; // Change this to your method
 
             ProcessStartInfo startInfo = new ProcessStartInfo {
                 FileName = unityPath,
@@ -72,6 +79,7 @@ namespace ProjectCloner {
             unityProcess.Exited += UnityProcess_Exited;
 
             try {
+                form1.HandleError("Unity Process Starting", false, true);
                 unityProcess.Start();
             } catch (UnauthorizedAccessException e) {
                 form1.HandleError("Error occurred : " + e);
@@ -91,15 +99,15 @@ namespace ProjectCloner {
             // Check if Unity process exited successfully
             if (unityProcess.ExitCode == 0) {
                 MessageBox.Show("Unity operation completed successfully!");
-                form1.HandleError("Unity operation completed successfully!");
+                form1.HandleError("Unity operation completed successfully!", true, true);
             } else {
                 // Check if Unity process crashed unexpectedly
                 if (!unityProcess.HasExited) {
                     MessageBox.Show("Unity process crashed unexpectedly!");
                     form1.HandleError("Unity process crashed unexpectedly!");
                 } else {
-                    MessageBox.Show("Unity operation failed!");
-                    form1.HandleError("Unity operation failed!");
+                    MessageBox.Show("Unity operation failed! : " + unityProcess.ExitCode);
+                    form1.HandleError("Unity operation failed! : " + unityProcess.ExitCode);
                 }
             }
         }

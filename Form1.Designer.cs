@@ -37,13 +37,15 @@
             label3 = new Label();
             baseprojectbrachTextbox = new TextBox();
             openLogButton = new Button();
+            label4 = new Label();
+            unity_versionText = new TextBox();
             SuspendLayout();
             // 
             // gitURL_textBox
             // 
             gitURL_textBox.Location = new Point(124, 21);
             gitURL_textBox.Name = "gitURL_textBox";
-            gitURL_textBox.Size = new Size(301, 23);
+            gitURL_textBox.Size = new Size(507, 23);
             gitURL_textBox.TabIndex = 0;
             gitURL_textBox.Text = "https://github.com/viitoradmin/hologram-stage-viewer-application.git";
             // 
@@ -58,7 +60,7 @@
             // 
             // gitClone_button
             // 
-            gitClone_button.Location = new Point(301, 155);
+            gitClone_button.Location = new Point(508, 155);
             gitClone_button.Name = "gitClone_button";
             gitClone_button.Size = new Size(124, 40);
             gitClone_button.TabIndex = 2;
@@ -70,7 +72,7 @@
             // 
             project_direcotorytextBox.Location = new Point(124, 64);
             project_direcotorytextBox.Name = "project_direcotorytextBox";
-            project_direcotorytextBox.Size = new Size(240, 23);
+            project_direcotorytextBox.Size = new Size(431, 23);
             project_direcotorytextBox.TabIndex = 3;
             project_direcotorytextBox.Text = "D:\\Vinayak_ViitorCloud\\Temp";
             // 
@@ -89,7 +91,7 @@
             // 
             // button1
             // 
-            button1.Location = new Point(370, 61);
+            button1.Location = new Point(576, 64);
             button1.Name = "button1";
             button1.Size = new Size(55, 27);
             button1.TabIndex = 5;
@@ -100,10 +102,11 @@
             // error_label
             // 
             error_label.AutoSize = true;
+            error_label.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             error_label.ForeColor = Color.Red;
-            error_label.Location = new Point(12, 137);
+            error_label.Location = new Point(12, 163);
             error_label.Name = "error_label";
-            error_label.Size = new Size(43, 15);
+            error_label.Size = new Size(58, 21);
             error_label.TabIndex = 6;
             error_label.Text = "asdasd";
             // 
@@ -139,11 +142,11 @@
             baseprojectbrachTextbox.Name = "baseprojectbrachTextbox";
             baseprojectbrachTextbox.Size = new Size(87, 23);
             baseprojectbrachTextbox.TabIndex = 9;
-            baseprojectbrachTextbox.Text = "2022.3.11f";
+            baseprojectbrachTextbox.Text = "package-import-script";
             // 
             // openLogButton
             // 
-            openLogButton.Location = new Point(12, 155);
+            openLogButton.Location = new Point(378, 155);
             openLogButton.Name = "openLogButton";
             openLogButton.Size = new Size(124, 40);
             openLogButton.TabIndex = 11;
@@ -151,12 +154,31 @@
             openLogButton.UseVisualStyleBackColor = true;
             openLogButton.Click += openLogButton_Click;
             // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(463, 110);
+            label4.Name = "label4";
+            label4.Size = new Size(76, 15);
+            label4.TabIndex = 13;
+            label4.Text = "Unity Version";
+            // 
+            // unity_versionText
+            // 
+            unity_versionText.Location = new Point(545, 107);
+            unity_versionText.Name = "unity_versionText";
+            unity_versionText.Size = new Size(87, 23);
+            unity_versionText.TabIndex = 12;
+            unity_versionText.Text = "2022.3.11f";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImageLayout = ImageLayout.Center;
-            ClientSize = new Size(446, 201);
+            ClientSize = new Size(669, 201);
+            Controls.Add(label4);
+            Controls.Add(unity_versionText);
             Controls.Add(openLogButton);
             Controls.Add(label3);
             Controls.Add(baseprojectbrachTextbox);
@@ -197,5 +219,7 @@
         private Label label3;
         private TextBox baseprojectbrachTextbox;
         private Button openLogButton;
+        private Label label4;
+        private TextBox unity_versionText;
     }
 }
