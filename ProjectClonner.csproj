@@ -9,7 +9,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Update="BaseProjectClonner.bat">
+    <Reference Include="LibGit2Sharp">
+      <HintPath>LibGit2Sharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Octokit">
+      <HintPath>Octokit.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="git2-e632535.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

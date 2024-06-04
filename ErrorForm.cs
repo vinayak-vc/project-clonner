@@ -16,11 +16,15 @@
         }
 
         public void ErrorText(string text) {
-            ErrorLable.AppendText(Environment.NewLine + DateTime.Now.ToString("HH:mm:ss") + " - " + text); // Append log entry to RichTextBox
-            ErrorLable.SelectionStart = ErrorLable.TextLength;
-            ErrorLable.ScrollToCaret();
-
-            File.AppendAllText(logPath, text);
+            if (ErrorLable.InvokeRequired) {
+                ErrorLable.Invoke(new Action<string>(ErrorText), new object[] { text });
+            } else {
+                // Append the output to a TextBox or another control in your form
+                ErrorLable.AppendText(Environment.NewLine + DateTime.Now.ToString("HH:mm:ss") + " - " + text);
+                ErrorLable.SelectionStart = ErrorLable.TextLength;
+                ErrorLable.ScrollToCaret();
+                File.AppendAllText(logPath, text);
+            }
         }
 
         private void ErrorForm_Resize(object sender, EventArgs e) {

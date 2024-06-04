@@ -37,6 +37,10 @@
             label3 = new Label();
             baseprojectbrachTextbox = new TextBox();
             openLogButton = new Button();
+            label4 = new Label();
+            unity_versionText = new TextBox();
+            label5 = new Label();
+            token_textBox = new TextBox();
             SuspendLayout();
             // 
             // gitURL_textBox
@@ -45,7 +49,7 @@
             gitURL_textBox.Name = "gitURL_textBox";
             gitURL_textBox.Size = new Size(301, 23);
             gitURL_textBox.TabIndex = 0;
-            gitURL_textBox.Text = "https://github.com/viitoradmin/hologram-stage-viewer-application.git";
+            gitURL_textBox.Text = "https://github.com/viitoradmin/vessel-container-book.git";
             // 
             // labelgitURL
             // 
@@ -58,7 +62,7 @@
             // 
             // gitClone_button
             // 
-            gitClone_button.Location = new Point(301, 155);
+            gitClone_button.Location = new Point(301, 226);
             gitClone_button.Name = "gitClone_button";
             gitClone_button.Size = new Size(124, 40);
             gitClone_button.TabIndex = 2;
@@ -100,10 +104,11 @@
             // error_label
             // 
             error_label.AutoSize = true;
+            error_label.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             error_label.ForeColor = Color.Red;
-            error_label.Location = new Point(12, 137);
+            error_label.Location = new Point(12, 191);
             error_label.Name = "error_label";
-            error_label.Size = new Size(43, 15);
+            error_label.Size = new Size(58, 21);
             error_label.TabIndex = 6;
             error_label.Text = "asdasd";
             // 
@@ -113,7 +118,7 @@
             projectBranchTextbox.Name = "projectBranchTextbox";
             projectBranchTextbox.Size = new Size(87, 23);
             projectBranchTextbox.TabIndex = 7;
-            projectBranchTextbox.Text = "developement";
+            projectBranchTextbox.Text = "main";
             // 
             // label2
             // 
@@ -139,11 +144,11 @@
             baseprojectbrachTextbox.Name = "baseprojectbrachTextbox";
             baseprojectbrachTextbox.Size = new Size(87, 23);
             baseprojectbrachTextbox.TabIndex = 9;
-            baseprojectbrachTextbox.Text = "2022.3.11f";
+            baseprojectbrachTextbox.Text = "package-import-script";
             // 
             // openLogButton
             // 
-            openLogButton.Location = new Point(12, 155);
+            openLogButton.Location = new Point(154, 226);
             openLogButton.Name = "openLogButton";
             openLogButton.Size = new Size(124, 40);
             openLogButton.TabIndex = 11;
@@ -151,12 +156,49 @@
             openLogButton.UseVisualStyleBackColor = true;
             openLogButton.Click += openLogButton_Click;
             // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(12, 155);
+            label4.Name = "label4";
+            label4.Size = new Size(76, 15);
+            label4.TabIndex = 13;
+            label4.Text = "Unity Version";
+            // 
+            // unity_versionText
+            // 
+            unity_versionText.Location = new Point(124, 152);
+            unity_versionText.Name = "unity_versionText";
+            unity_versionText.Size = new Size(87, 23);
+            unity_versionText.TabIndex = 12;
+            unity_versionText.Text = "2022.3.11f";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(224, 155);
+            label5.Name = "label5";
+            label5.Size = new Size(77, 15);
+            label5.TabIndex = 15;
+            label5.Text = "Github Token";
+            // 
+            // token_textBox
+            // 
+            token_textBox.Location = new Point(338, 152);
+            token_textBox.Name = "token_textBox";
+            token_textBox.Size = new Size(87, 23);
+            token_textBox.TabIndex = 14;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImageLayout = ImageLayout.Center;
-            ClientSize = new Size(446, 201);
+            ClientSize = new Size(444, 280);
+            Controls.Add(label5);
+            Controls.Add(token_textBox);
+            Controls.Add(label4);
+            Controls.Add(unity_versionText);
             Controls.Add(openLogButton);
             Controls.Add(label3);
             Controls.Add(baseprojectbrachTextbox);
@@ -197,5 +239,9 @@
         private Label label3;
         private TextBox baseprojectbrachTextbox;
         private Button openLogButton;
+        private Label label4;
+        private TextBox unity_versionText;
+        private Label label5;
+        private TextBox token_textBox;
     }
 }
