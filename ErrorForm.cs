@@ -16,8 +16,6 @@
         }
 
         public void ErrorText(string text) {
-            //ErrorLable.AppendText(Environment.NewLine + DateTime.Now.ToString("HH:mm:ss") + " - " + text); // Append log entry to RichTextBox
-
             if (ErrorLable.InvokeRequired) {
                 ErrorLable.Invoke(new Action<string>(ErrorText), new object[] { text });
             } else {

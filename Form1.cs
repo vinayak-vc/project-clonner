@@ -2,6 +2,8 @@
 using System.Text;
 using System.Text.RegularExpressions;
 
+using ViitorCloud.ProjectCloner;
+
 namespace ProjectCloner {
 
     internal enum LogType {
@@ -14,7 +16,6 @@ namespace ProjectCloner {
         private readonly Regex UrlMatchOnlyHttps = new Regex(@"(?i)(http(s)?:\/\/)(\w{2,25}\.)+\w{3}([a-z0-9\-?=$-_.+!*()]+)(?i)", RegexOptions.Singleline);
         private promtdialog_Form promtdialog_Form;
         private ErrorForm errorForm;
-        private Process process;
         private UnityOprations unityOprations;
 
         public Form1() {
@@ -26,6 +27,7 @@ namespace ProjectCloner {
             unityOprations = new UnityOprations();
             unityOprations.Init(this);
             errorForm.FormClosing += ErrorForm_FormClosed;
+            GitMechanism.Initialize(this);
         }
 
         private void ErrorForm_FormClosed(object? sender, FormClosingEventArgs e) {
@@ -50,88 +52,33 @@ namespace ProjectCloner {
             //});
         }
 
-        private Task ExecuteCommand(string path, string gitURL, string projectDirectory, string driveName, string folderName, string baseProjectBranchName, string projectBranchName, string projectName, string unityPath) {
+        private Task RunCommand(string gitURL, string projectDirectory, string folderName, string baseProjectBranchName, string projectBranchName, string projectName) {
             return Task.Run(() => {
-                try {
-                    // Check if the script file exists
-                    if (!File.Exists(path)) {
-                        HandleError("Batch file does not exist.", true);
-                        return;
+                string folderPath = Path.Combine(projectDirectory, folderName);
+
+                new DirectoryInfo(folderPath).Create();
+
+                GitMechanism.PerformClone(@"https://github.com/viitoradmin/unityvc-base-project.git", folderPath, (success, errorMessage) => {
+                    if (success) {
+                        GitMechanism.PerformFetch(folderPath, (success, errorMessage) => {
+                            GitMechanism.PerformCheckout(folderPath, baseProjectBranchName, (success, errorMessage) => {
+                                if (success) {
+                                    string unityvcBaseprojectDirector = Path.Combine(folderPath, "Assets", "Games", projectName);
+                                    new DirectoryInfo(unityvcBaseprojectDirector).Create();
+                                    GitMechanism.PerformClone(gitURL, unityvcBaseprojectDirector, (success, errorMessage) => {
+                                        if (success) {
+                                            GitMechanism.PerformFetch(unityvcBaseprojectDirector, (success, errorMessage) => {
+                                                GitMechanism.PerformCheckout(unityvcBaseprojectDirector, projectBranchName, (success, errorMessage) => {
+                                                    unityOprations.StartUnityOperations(unity_versionText.Text, Path.Combine(projectDirectory, folderName));
+                                                });
+                                            });
+                                        }
+                                    });
+                                }
+                            });
+                        });
                     }
-
-                    // Check if the Git URL is empty
-                    if (string.IsNullOrWhiteSpace(gitURL)) {
-                        HandleError("Git URL should not be empty.", true);
-                        return;
-                    }
-
-                    // Check if the Git URL is valid
-                    if (!UrlMatchOnlyHttps.IsMatch(gitURL)) {
-                        HandleError("Invalid Git URL.");
-                        return;
-                    }
-                    // Check if the project directory is empty or does not exist
-                    if (string.IsNullOrWhiteSpace(projectDirectory) || !Directory.Exists(projectDirectory)) {
-                        HandleError("Project directory does not exist.", true);
-                        return;
-                    }
-                    // Check if the project directory is valid
-                    string folderPath = Path.Combine(projectDirectory, folderName);
-                    if (Directory.Exists(folderPath)) {
-                        HandleError("Directory already exists.", true);
-                        //return;
-                    }
-                    // Construct the process start info
-                    ProcessStartInfo psi = new(path,
-                        $"{gitURL} " +
-                        //$"https://github.com/viitoradmin/unityvc-base-project.git " +
-                        $"{projectDirectory}  " +
-                        $"{driveName} " +
-                        $"{folderName} " +
-                        $"{baseProjectBranchName} " +
-                        $"{projectBranchName} " +
-                        $"{projectName} " +
-                        $"\"{unityPath}\"  " +
-                        $"{folderPath} ") {
-                        CreateNoWindow = false,
-                        UseShellExecute = false,
-                        RedirectStandardOutput = true,
-                        RedirectStandardError = true,
-                        RedirectStandardInput = true,
-                        ErrorDialog = true
-                    };
-                    if (!File.Exists(Path.Combine(projectDirectory, "output.txt"))) {
-                        new FileStream(Path.Combine(projectDirectory, "output.txt"), FileMode.CreateNew).Dispose();
-                    }
-
-                    HandleError(string.Format("[ShellScript] Attempting to execute: \ncmd({0})\nargs({1})\n", path, psi.Arguments));
-
-                    // Start the process
-                    Process process = new() {
-                        StartInfo = psi
-                    };
-
-                    // Event handlers for capturing output
-                    process.OutputDataReceived += (sender, e) => OutputToTextBox(e.Data);
-                    process.ErrorDataReceived += (sender, e) => OutputToTextBox(e.Data);
-
-                    process.Start();
-
-                    // Begin asynchronously reading the output
-                    process.BeginOutputReadLine();
-                    process.BeginErrorReadLine();
-
-                    process.WaitForExit();
-
-                    if (process.ExitCode == 0) {
-                        HandleError("Clone Successfull. Now Starting Unity", false, true);
-                        unityOprations.StartUnityOperations(unity_versionText.Text, Path.Combine(projectDirectory, folderName));
-                        return;
-                    }
-                } catch (Exception ex) {
-                    // Catch any unexpected exceptions
-                    HandleError($"An unexpected error occurred: {ex.Message}");
-                }
+                });
             }).ContinueWith(task => {
                 Loom.QueueOnMainThread(delegate {
                     if (task.IsFaulted) {
@@ -149,51 +96,7 @@ namespace ProjectCloner {
             }
         }
 
-        private void SplitLog(LogType type, string prefix, string postfix, string fullLog, int lineCap = 1024) {
-            if (string.IsNullOrWhiteSpace(fullLog))
-                return;
-
-            string[] lines = fullLog.Split(separator: new char[] { '\n' });
-            if (lines.Length < lineCap) {
-                HandleError($"{type}: {prefix}{fullLog}{postfix}");
-                return;
-            }
-
-            StringBuilder s = new();
-            s.Append(prefix);
-            for (int i = 0; i < lines.Length / lineCap; ++i) {
-                for (int j = 0; j < lineCap; j++) {
-                    string line = lines[i * lineCap + j];
-                    if (!string.IsNullOrWhiteSpace(line))
-                        s.AppendLine(line);
-                }
-
-                string combinedOut = s.ToString();
-                if (!string.IsNullOrWhiteSpace(combinedOut))
-                    HandleError($"{type}: {combinedOut}");
-
-                s = new StringBuilder();
-            }
-
-            HandleError($"{type}: {postfix}");
-        }
-
-        private void Process_Exited(object? sender, EventArgs e) {
-            process.Exited -= Process_Exited;
-            HandleError(process.ExitCode + "");
-            promtdialog_Form.Show();
-        }
-
         private async void gitClone_button_Click(object sender, EventArgs e) {
-            Console.WriteLine(Application.ExecutablePath);
-            string path = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "BaseProjectClonner.bat");
-            HandleError(path);
-
-            if (!File.Exists(path)) {
-                HandleError("Batch file does not exist.", true);
-                return;
-            }
-
             if (gitURL_textBox.Text == "" || string.IsNullOrEmpty(gitURL_textBox.Text)) {
                 HandleError("Git URL should not be empty.", true);
                 return;
@@ -228,9 +131,17 @@ namespace ProjectCloner {
             string drivename = project_direcotorytextBox.Text[..2];
             Debug.WriteLine(folderName);
 
+            if (token_textBox.Text != "" && !string.IsNullOrEmpty(token_textBox.Text)) {
+                GitMechanism.SetCredential(token_textBox.Text, (isValid) => {
+                    if (!isValid) {
+                        HandleError("Invalid GitHub token provided in environment variables.", true);
+                    }
+                });
+            }
+
             gitClone_button.Enabled = false;
 
-            await ExecuteCommand(path, gitURL_textBox.Text, project_direcotorytextBox.Text, drivename, folderName, baseprojectbrachTextbox.Text, projectBranchTextbox.Text, Path.GetFileNameWithoutExtension(gitURL_textBox.Text), unityPath);
+            await RunCommand(gitURL_textBox.Text, project_direcotorytextBox.Text, folderName, baseprojectbrachTextbox.Text, projectBranchTextbox.Text, Path.GetFileNameWithoutExtension(gitURL_textBox.Text));
         }
 
         private void button1_Click(object sender, EventArgs e) {

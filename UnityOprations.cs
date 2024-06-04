@@ -62,7 +62,7 @@ namespace ProjectCloner {
         private void StartUnityProcess(string unityPath, string projectPath) {
             Debug.Print("unityPath: " + unityPath);
             Debug.Print("projectPath: " + projectPath);
-            string unityArgs = $" -quit -projectPath {projectPath} -executeMethod ViitorCloud.Base.BaseScripts.PluginObjects.Editor.CheckforPlugin.DownloadThePlugin"; // Change this to your method
+            string unityArgs = $" -projectPath {projectPath} -executeMethod ViitorCloud.Base.BaseScripts.PluginObjects.Editor.CheckforPlugin.DownloadThePlugin"; // Change this to your method
 
             ProcessStartInfo startInfo = new ProcessStartInfo {
                 FileName = unityPath,
