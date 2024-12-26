@@ -35,7 +35,7 @@ namespace ProjectCloner {
         }
 
         public static string? FindUnityExecutable(string version) {
-            version = "2022.3.11f";
+            //version = "2022.3.11f";
             string[] unityInstallationPaths = {
                 $@"C:\Program Files\Unity\Hub\Editor\{version}1\Editor\",
                 $@"C:\Program Files (x86)\Unity\Hub\Editor\{version}1\Editor\"
