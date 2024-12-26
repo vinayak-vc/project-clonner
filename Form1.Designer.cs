@@ -49,7 +49,6 @@
             gitURL_textBox.Name = "gitURL_textBox";
             gitURL_textBox.Size = new Size(301, 23);
             gitURL_textBox.TabIndex = 0;
-            gitURL_textBox.Text = "https://github.com/viitoradmin/vessel-container-book.git";
             // 
             // labelgitURL
             // 
@@ -118,7 +117,7 @@
             projectBranchTextbox.Name = "projectBranchTextbox";
             projectBranchTextbox.Size = new Size(87, 23);
             projectBranchTextbox.TabIndex = 7;
-            projectBranchTextbox.Text = "main";
+            projectBranchTextbox.Text = "development";
             // 
             // label2
             // 
@@ -144,7 +143,8 @@
             baseprojectbrachTextbox.Name = "baseprojectbrachTextbox";
             baseprojectbrachTextbox.Size = new Size(87, 23);
             baseprojectbrachTextbox.TabIndex = 9;
-            baseprojectbrachTextbox.Text = "package-import-script";
+            baseprojectbrachTextbox.Text = "6000.0.25f1";
+            baseprojectbrachTextbox.TextChanged += baseprojectbrachTextbox_TextChanged;
             // 
             // openLogButton
             // 
@@ -171,7 +171,7 @@
             unity_versionText.Name = "unity_versionText";
             unity_versionText.Size = new Size(87, 23);
             unity_versionText.TabIndex = 12;
-            unity_versionText.Text = "2022.3.11f";
+            unity_versionText.Text = "6000.0.25f1";
             // 
             // label5
             // 
@@ -220,9 +220,12 @@
             Text = "Git Clonner";
             TopMost = true;
             Load += Form1_Load;
+            FormClosing += Form1_FormClosing;
             ResumeLayout(false);
             PerformLayout();
         }
+
+        
 
         #endregion
 

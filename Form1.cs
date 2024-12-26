@@ -1,4 +1,6 @@
-﻿using System.Diagnostics;
+﻿using Microsoft.Win32;
+
+using System.Diagnostics;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -162,6 +164,29 @@ namespace ProjectCloner {
         }
 
         private void Form1_Load(object sender, EventArgs e) {
+            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\VC\ProjectClonner");
+            if (key != null) {
+                project_direcotorytextBox.Text = key.GetValue("project_direcotorytextBox").ToString();
+                token_textBox.Text = key.GetValue("token_textBox").ToString();
+                unity_versionText.Text = key.GetValue("unity_versionText").ToString();
+                baseprojectbrachTextbox.Text = key.GetValue("baseprojectbrachTextbox").ToString();
+                projectBranchTextbox.Text = key.GetValue("projectBranchTextbox").ToString();
+                gitURL_textBox.Text = key.GetValue("gitURL_textBox").ToString();
+            }
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e) {
+            RegistryKey key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\VC\ProjectClonner");
+            key.SetValue("project_direcotorytextBox", project_direcotorytextBox.Text);
+            key.SetValue("token_textBox", token_textBox.Text);
+            key.SetValue("unity_versionText", unity_versionText.Text);
+            key.SetValue("baseprojectbrachTextbox", baseprojectbrachTextbox.Text);
+            key.SetValue("projectBranchTextbox", projectBranchTextbox.Text);
+            key.SetValue("gitURL_textBox", gitURL_textBox.Text);
+            key.Close();
+        }
+
+        private void baseprojectbrachTextbox_TextChanged(object sender, EventArgs e) {
         }
     }
 }

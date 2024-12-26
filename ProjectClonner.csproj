@@ -6,7 +6,13 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <PackageIcon>VCLogo_WhiteBG (2).ico</PackageIcon>
+    <ApplicationIcon>VCLogo_WhiteBG (2).ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="VCLogo_WhiteBG (2).ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <Reference Include="LibGit2Sharp">
@@ -20,6 +26,10 @@
   <ItemGroup>
     <None Update="git2-e632535.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="VCLogo_WhiteBG %282%29.ico">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
 
